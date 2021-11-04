@@ -1,1 +1,6 @@
-data/
+data/test/*
+data/train/*
+answer*
+submission*
+best.ckpt
+*png
