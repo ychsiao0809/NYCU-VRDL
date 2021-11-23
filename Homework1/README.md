@@ -7,13 +7,44 @@ Official PyTorch model implement based on paper [*Deep Residual Learning for Ima
 - Torchvision 0.6.1
 
 ## Intallation
+### Prepare
+1. Clone the repository
 ```
 git clone https://github.com/ychsiao0809/NYCU-VRDL.git
 cd 21LPCVC-UAV_VIdeo_Track-Sample-Solution
 ```
-Install dependencies with code below:
+2. Install dependencies:
 ```
 pip install -r requirements.txt
+```
+### Download Pre-trained Models
+The trained weight of ResNet152 is provided [here](https://drive.google.com/file/d/1-7rayKLTUCdu6GhpOGThwBmNwGkMT-qx/view?usp=sharing).
+
+### Folder structure
+Training and Testing data should be placed at `data/train` and `data/test`
+```
+Homework1
+├── answer.txt
+├── best.ckpt
+├── data/
+│   ├── answer.txt
+│   ├── classes.txt
+│   ├── test/
+│   │   ├── 0001.jpg
+│   │   ├── 0002.jpg
+│   │   ├── 0004.jpg
+│   │   ├── ...
+│   ├── testing_img_order.txt
+│   ├── train/
+│   │   ├── 0003.jpg
+│   │   ├── 0008.jpg
+│   │   ├── 0010.jpg
+│   │   ├── ...
+│   └── training_labels.txt
+├── inference.py
+├── README.md
+├── requirements.txt
+└── train.py
 ```
 
 ## Usage

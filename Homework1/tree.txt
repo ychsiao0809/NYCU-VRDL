@@ -1,0 +1,21 @@
+├── answer.txt
+├── best.ckpt
+├── data/
+│   ├── answer.txt
+│   ├── classes.txt
+│   ├── test/
+│   │   ├── 0001.jpg
+│   │   ├── 0002.jpg
+│   │   ├── 0004.jpg
+│   │   ├── ...
+│   ├── testing_img_order.txt
+│   ├── train/
+│   │   ├── 0003.jpg
+│   │   ├── 0008.jpg
+│   │   ├── 0010.jpg
+│   │   ├── ...
+│   └── training_labels.txt
+├── inference.py
+├── README.md
+├── requirements.txt
+└── train.py
