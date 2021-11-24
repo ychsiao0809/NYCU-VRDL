@@ -1,0 +1,6 @@
+datasets/test*
+datasets/train*
+*.jpg
+*.png
+answer*
+submission*

@@ -1,0 +1,9 @@
+*.cache
+./svhn/train/images/*.png
+./svhn/train/labels/*.txt
+svhn*
+datasets/svhn/valid/images/*.png
+datasets/svhn/valid/labels/*.txt
+train/
+test/
+*.zip
