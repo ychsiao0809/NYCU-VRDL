@@ -1,9 +1,65 @@
+NYCU VRDL Homework2: Object Detection on Street View House Numbers
+# YOLOv5
+[YOLOv4](https://arxiv.org/abs/2004.10934v1)
+
+## Install
+### Data structure
+- `datasets/train`, `datasets/test`: origin datasets
+- `datasets/svhn`: Split origin train data into training and validation dataset and store their label under `l, createafter running data preprocessing
+- `yolo`: See [YOLOv5 github page](https://github.com/ultralytics/yolov5)
+```
+/
+├── datasets/
+│   ├── svhn/
+│   │   ├── train/
+│   │   │   ├── images/
+│   │   │   │   ├── 10.png
+│   │   │   │   │   .
+│   │   │   │   └── 9999.png
+│   │   │   ├── labels/
+│   │   │   │   ├── 10.txt
+│   │   │   │   │   .
+│   │   │   │   └── 9999.txt
+│   │   │   └── labels.cache
+│   │   └── valid/
+│   │       ├── images/
+│   │       │   ├── 1.png
+│   │       │   │   .
+│   │       │   │   .
+│   │       │   └── 9992.png
+│   │       ├── labels/
+│   │       │   ├── 1.txt
+│   │       │   │   .
+│   │       │   └── 9992.txt
+│   │       └── labels.cache
+│   ├── test/
+│   │   ├── 100009.png
+│   │   │   .
+│   │   │   .
+│   │   └── 99942.png
+│   ├── train/
+│   │   ├── 1.png
+│   │   │   .
+│   │   │   .
+│   │   ├── 9999.png
+│   │   ├── digitStruct.mat
+│   │   └── see_bboxes.m
+├── detect.py
+├── inference.ipynb
+├── preprocess.py
+├── README.md
+├── requirements.txt
+├── answer.json
+├── toJSON.py
+└── yolov5/
+```
+
 ## Train
 ```
 python train.py --img 320 --batch 15 --epochs 50 --data svhn.yaml --weight yolov5m.pt
 ```
-## Validation result
-yolov5m
+### Validation result
+- yolov5m
 ```
 50 epochs completed in 2.666 hours.
 Optimizer stripped from runs/train/exp/weights/last.pt, 42.2MB
@@ -25,8 +81,7 @@ Model Summary: 290 layers, 20889303 parameters, 0 gradients, 48.1 GFLOPs
                    8       3000        492      0.948      0.957      0.962      0.525
                    9       3000        392      0.933      0.931      0.955      0.517
 ```
-
-yolov5l
+- yolov5l
 ```
 50 epochs completed in 4.873 hours.
 Optimizer stripped from runs/train/exp2/weights/last.pt, 92.8MB
@@ -50,59 +105,14 @@ Model Summary: 367 layers, 46156743 parameters, 0 gradients, 107.9 GFLOPs
 ```
 
 ## Run inference and benchmark
+- `conf`: the threshold of confidence
+- 
 ```
 python detect.py --source ../datasets/svhn/train/images/ --weights runs/train/exp/weights/best.pt --conf 0.25 --save-txt --save-conf --name exp --test 100
 ```
 
 ## Detect
-### Usage
-```
-usage: detect.py [-h] [--weights WEIGHTS [WEIGHTS ...]] [--source SOURCE]
-                 [--imgsz IMGSZ [IMGSZ ...]] [--conf-thres CONF_THRES]
-                 [--iou-thres IOU_THRES] [--max-det MAX_DET] [--device DEVICE]
-                 [--view-img] [--save-txt] [--save-conf] [--save-crop]
-                 [--nosave] [--classes CLASSES [CLASSES ...]] [--agnostic-nms]
-                 [--augment] [--visualize] [--update] [--project PROJECT]
-                 [--name NAME] [--exist-ok] [--line-thickness LINE_THICKNESS]
-                 [--hide-labels] [--hide-conf] [--half] [--dnn] [--test TEST]
-
-optional arguments:
-  -h, --help            show this help message and exit
-  --weights WEIGHTS [WEIGHTS ...]
-                        model path(s)
-  --source SOURCE       file/dir/URL/glob, 0 for webcam
-  --imgsz IMGSZ [IMGSZ ...], --img IMGSZ [IMGSZ ...], --img-size IMGSZ [IMGSZ ...]
-                        inference size h,w
-  --conf-thres CONF_THRES
-                        confidence threshold
-  --iou-thres IOU_THRES
-                        NMS IoU threshold
-  --max-det MAX_DET     maximum detections per image
-  --device DEVICE       cuda device, i.e. 0 or 0,1,2,3 or cpu
-  --view-img            show results
-  --save-txt            save results to *.txt
-  --save-conf           save confidences in --save-txt labels
-  --save-crop           save cropped prediction boxes
-  --nosave              do not save images/videos
-  --classes CLASSES [CLASSES ...]
-                        filter by class: --classes 0, or --classes 0 2 3
-  --agnostic-nms        class-agnostic NMS
-  --augment             augmented inference
-  --visualize           visualize features
-  --update              update all models
-  --project PROJECT     save results to project/name
-  --name NAME           save results to project/name
-  --exist-ok            existing project/name ok, do not increment
-  --line-thickness LINE_THICKNESS
-                        bounding box thickness (pixels)
-  --hide-labels         hide labels
-  --hide-conf           hide confidences
-  --half                use FP16 half-precision inference
-  --dnn                 use OpenCV DNN for ONNX inference
-  --test TEST           inference speed test
-
-```
-### Example
+### Run testing
 ```
 python detect.py --source ../datasets/test --weights runs/train/exp/weights/best.pt --conf 0.25 --save-txt --save-conf --name [experiment name]
 ```
@@ -111,12 +121,42 @@ python detect.py --source ../datasets/test --weights runs/train/exp/weights/best
 ```
 python toJSON.py --exp [experiment name]
 ```
+#### Output
+```
+[
+    {
+        "image_id": 117,
+        "category_id": 3,
+        "bbox": [
+            41.999961,
+            8.999991999999999,
+            12.00005,
+            24.999988000000002
+        ],
+        "score": 0.71503
+    },
+    {
+        "image_id": 117,
+        "category_id": 8,
+        "bbox": [
+            53.999957499999994,
+            11.000002999999998,
+            13.999987,
+            25.999982
+        ],
+        "score": 0.770699
+    },
+    .
+    .
+    .
+]   
+```
 
 ## Result
-| pretrained model | layers | parameters | mAP |
-|:--:|:--:|:--:|:--:|
-| yolov5m	| 290 | 20889303 | 0.41240 |
-| yolov5l	| 367 | 46156743 | 0.41240 |
+| pretrained model | validation mAP | layers | parameters | test mAP |
+|:--:|:--:|:--:|:--:|:--:|
+| yolov5m	| 0.51171 | 290 | 20889303 | 0.41240 |
+| yolov5l	| 0.51342 | 367 | 46156743 | 0.41240 |
 
 ## Reference
 - [h5py guide](https://docs.h5py.org/en/stable/quick.html)
