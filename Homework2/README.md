@@ -1,12 +1,43 @@
 NYCU VRDL Homework2: Object Detection on Street View House Numbers
 # YOLOv5
-[YOLOv4](https://arxiv.org/abs/2004.10934v1)
+
+## Environment
+- Python 3.7.11
+- PyTorch>=1.7.0
+- Torchvision>=0.8.1
+- h5py 3.6.0
 
 ## Install
-### Data structure
-- `datasets/train`, `datasets/test`: origin datasets
-- `datasets/svhn`: Split origin train data into training and validation dataset and store their label under `l, createafter running data preprocessing
-- `yolo`: See [YOLOv5 github page](https://github.com/ultralytics/yolov5)
+### Prepare
+1. Clone the repository
+```
+git clone --recurse-submodules https://github.com/ychsiao0809/NYCU-VRDL.git
+cd Homework2
+```
+2. Install dependencies:
+```
+pip install -r requirements.txt
+pip install -r yolov5/requirements.txt 
+```
+3. Download pretrained model weigth [here](https://github.com/ychsiao0809/NYCU-VRDL/blob/main/Homework2/weights/yolov5m/best.pt)
+
+## Dataset
+The giving SVHN dataset contains 33402 images for training and 13068 images for testing. This project uses the YOLOv5 pre-trained model to fix this challenge.
+
+See [The Street View House Numbers (SVHN) Dataset](http://ufldl.stanford.edu/housenumbers/)
+
+## Data Preprocess
+Run `prerocess.py` tp extract label of data from `digitStruct.mat`  and split train data into train and validation.
+```
+usage: preprocess.py [-h] [-v VALID]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -v VALID, --valid VALID
+                        number of validation data
+```
+### File structure
+The file structure should look like below.
 ```
 /
 ├── datasets/
@@ -14,33 +45,30 @@ NYCU VRDL Homework2: Object Detection on Street View House Numbers
 │   │   ├── train/
 │   │   │   ├── images/
 │   │   │   │   ├── 10.png
-│   │   │   │   │   .
+│   │   │   │   │   ...
 │   │   │   │   └── 9999.png
 │   │   │   ├── labels/
 │   │   │   │   ├── 10.txt
-│   │   │   │   │   .
+│   │   │   │   │   ...
 │   │   │   │   └── 9999.txt
 │   │   │   └── labels.cache
 │   │   └── valid/
 │   │       ├── images/
 │   │       │   ├── 1.png
-│   │       │   │   .
-│   │       │   │   .
+│   │       │   │   ...
 │   │       │   └── 9992.png
 │   │       ├── labels/
 │   │       │   ├── 1.txt
-│   │       │   │   .
+│   │       │   │   ...
 │   │       │   └── 9992.txt
 │   │       └── labels.cache
 │   ├── test/
 │   │   ├── 100009.png
-│   │   │   .
-│   │   │   .
+│   │   │   ...
 │   │   └── 99942.png
 │   ├── train/
 │   │   ├── 1.png
-│   │   │   .
-│   │   │   .
+│   │   │   ...
 │   │   ├── 9999.png
 │   │   ├── digitStruct.mat
 │   │   └── see_bboxes.m
@@ -52,13 +80,26 @@ NYCU VRDL Homework2: Object Detection on Street View House Numbers
 ├── answer.json
 ├── toJSON.py
 └── yolov5/
+    └── ...
 ```
+- `datasets/train/`, `datasets/test/`: origin datasets
+- `datasets/svhn/`: Randomly split origin train data into training and validation dataset and store their label under `labels/`. See `preprocess.py`.
+- `preprocess.py`: train data preprocessing
+- `detect.py`: modified yolo detection
+- `toJSON.py`: transform yolov5 data label form into json
+- `yolo`: See [YOLOv5 github page](https://github.com/ultralytics/yolov5)
 
 ## Train
+Make sure
 ```
+```
+Train model with pretrained weights, see [Train Custom Data](https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data)
+```
+cd yolov5
 python train.py --img 320 --batch 15 --epochs 50 --data svhn.yaml --weight yolov5m.pt
 ```
-### Validation result
+
+## Validation result
 - yolov5m
 ```
 50 epochs completed in 2.666 hours.
@@ -104,24 +145,30 @@ Model Summary: 367 layers, 46156743 parameters, 0 gradients, 107.9 GFLOPs
                    9       3000        392       0.94      0.934      0.955      0.517
 ```
 
-## Run inference and benchmark
-- `conf`: the threshold of confidence
-- 
+### Run inference and benchmark
+- `test`: number of input for inference speed time
 ```
 python detect.py --source ../datasets/svhn/train/images/ --weights runs/train/exp/weights/best.pt --conf 0.25 --save-txt --save-conf --name exp --test 100
 ```
 
-## Detect
-### Run testing
+### Detect
+#### Run testing
+`--source`: can be assigned with directory or specified file
+`--weights`: path of model weights
+`--conf`: confidence threshold
+`--save-txt`: save label result
+`--save-txt`: save confidence result (while `--save-txt` is `True`)
+`--name`: name of experiment directory
 ```
 python detect.py --source ../datasets/test --weights runs/train/exp/weights/best.pt --conf 0.25 --save-txt --save-conf --name [experiment name]
 ```
 
-### Turn YOLOv5 labels to JSON
+#### Turn YOLOv5 labels to JSON
 ```
 python toJSON.py --exp [experiment name]
 ```
 #### Output
+`answer.json`
 ```
 [
     {
