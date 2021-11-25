@@ -117,6 +117,7 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
         dataset = LoadImages(source, img_size=imgsz, stride=stride, auto=pt and not jit)
         bs = 1  # batch_size
         vid_path, vid_writer = [None] * bs, [None] * bs
+    ## Inference speed test
     else:
         TEST_IMAGE_NUMBER = test
 
@@ -128,7 +129,6 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
             dataset = LoadImages(source+data_listdir[i], img_size=imgsz, stride=stride, auto=pt and not jit)      
 
             for path, im, im0s, vid_cap, s in dataset:
-                t1 = time_sync()
                 im = torch.from_numpy(im).to(device)
                 im = im.half() if half else im.float()  # uint8 to fp16/32
                 im /= 255  # 0 - 255 to 0.0 - 1.0
