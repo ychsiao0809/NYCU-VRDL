@@ -1,0 +1,9 @@
+numpy
+scipy
+Pillow
+cython
+matplotlib
+h5py
+tqdm
+pyyaml==5.1
+opencv-python
