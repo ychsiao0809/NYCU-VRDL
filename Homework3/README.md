@@ -2,8 +2,8 @@ NYCU VRDL Homework1: Nucleus Segementation
 # Object Segementation
 ## Environment
 - Python 3.7.11
-- PyTorch 1.5.1
-- Torchvision 0.6.1
+- PyTorch 1.10.1
+- Torchvision 0.11.2
 
 ## Intallation
 ### Prepare
@@ -38,7 +38,7 @@ Use code below to install training and testing data:
 ```
 
 ### Download Pre-trained Models
-The trained weight of ResNet152 is provided [here](https://drive.google.com/file/d/1-7rayKLTUCdu6GhpOGThwBmNwGkMT-qx/view?usp=sharing).
+The trained weight of ResNet152 is provided [here](https://drive.google.com/file/d/1Wm7GBlxQWdcn2D5pSzM6TFUFbEUl0jz_/view?usp=sharing).
 
 ### Folder structure
 ```
