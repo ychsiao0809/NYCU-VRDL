@@ -17,12 +17,24 @@ data_preparation:
 	python image_preprocess.py
 
 train:
-	cp train KAIR
+	cp train.py KAIR/
+	@echo "Training SwinIR model..."
 	cd KAIR; python train.py --opt ../options/train_swinir_sr_customized.json
 
+inference:
+	cp test.py KAIR/
+	@echo "Start inference..."
+	cd KAIR && python test.py \
+							--task classical_sr \
+							--scale 3 \
+							--training_patch_size 48 \
+							--model_path ../models/best.pth \
+							--folder_lq ../data/testing_lr_images/
+
 result:
-	cd KAIR/results/swinir_classical_sr_x3; zip swinir_sr_20000.zip ./*.png 
-	mv KAIR/results/swinir_classical_sr_x3/swinir_sr_20000.zip .
+	@echo "Generate result.zip"
+	cd KAIR/results/swinir_classical_sr_x3; zip result.zip ./*.png
+	mv KAIR/results/swinir_classical_sr_x3/result.zip .
 
 reproduce: 
 	rm -rf KAIR_Repo/superresolution/models
