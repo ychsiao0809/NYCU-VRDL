@@ -25,11 +25,11 @@ inference:
 	cp test.py KAIR/
 	@echo "Start inference..."
 	cd KAIR && python test.py \
-							--task classical_sr \
-							--scale 3 \
-							--training_patch_size 48 \
-							--model_path ../models/best.pth \
-							--folder_lq ../data/testing_lr_images/
+					--task classical_sr \
+					--scale 3 \
+					--training_patch_size 48 \
+					--model_path ../models/best.pth \
+					--folder_lq ../data/testing_lr_images/
 
 result:
 	@echo "Generate result.zip"
