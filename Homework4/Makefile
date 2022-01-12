@@ -5,11 +5,17 @@ install:
 	pip install -r requirements.txt
 	cd KAIR_Repo ; pip install -r requiremet.txt
 
-download_data:
+data_preparation:
 	@echo "Downloading Data..."
 	rm -rf data
 	mkdir -p data
-	gdown https://drive.google.com/uc?id=1GL_Rh1N-WjrvF_-YOKOyvq0zrV6TF4hb -O "data/dataset.zip"
+	cp datasets.zip data/
+	# gdown https://drive.google.com/uc?id=1GL_Rh1N-WjrvF_-YOKOyvq0zrV6TF4hb -O "data/datasets.zip"
+	unzip -q data/datasets.zip -d data/ && rm data/datasets.zip
+	cp data/testing_lr_images/testing_lr_images/* data/testing_lr_images/
+	cp data/training_hr_images/training_hr_images/* data/training_hr_images/
+	rm -rf data/training_hr_images/training_hr_images/ data/testing_lr_images/testing_lr_images/
+	python image_preprocess.py
 
 make_trianing_lr: 
 	@echo "Making Training LR Images..."
@@ -20,7 +26,7 @@ make_trianing_lr:
 train: 
 	cd KAIR; python main_train_psnr.py --opt options/train_msrresnet_psnr.json
 
-create_result_zip:
+result:
 	cd KAIR/results/swinir_classical_sr_x3; zip swinir_sr_20000.zip ./*.png 
 	mv KAIR/results/swinir_classical_sr_x3/swinir_sr_20000.zip .
 
