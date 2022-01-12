@@ -9,8 +9,7 @@ data_preparation:
 	@echo "Downloading Data..."
 	rm -rf data
 	mkdir -p data
-	cp datasets.zip data/
-	# gdown https://drive.google.com/uc?id=1GL_Rh1N-WjrvF_-YOKOyvq0zrV6TF4hb -O "data/datasets.zip"
+	gdown https://drive.google.com/uc?id=1GL_Rh1N-WjrvF_-YOKOyvq0zrV6TF4hb -O "data/datasets.zip"
 	unzip -q data/datasets.zip -d data/ && rm data/datasets.zip
 	cp data/testing_lr_images/testing_lr_images/* data/testing_lr_images/
 	cp data/training_hr_images/training_hr_images/* data/training_hr_images/
@@ -18,8 +17,8 @@ data_preparation:
 	python image_preprocess.py
 
 train:
-	-mv train KAIR
-	cd KAIR; python train.py --opt options/train_msrresnet_psnr.json
+	cp train KAIR
+	cd KAIR; python train.py --opt ../options/train_swinir_sr_customized.json
 
 result:
 	cd KAIR/results/swinir_classical_sr_x3; zip swinir_sr_20000.zip ./*.png 
