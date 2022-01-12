@@ -1,9 +1,9 @@
-.PHONY: install download_data make_trianing_lr
+.PHONY: install data_preparation trian inference
 
 install: 
 	@echo "Installing Dependencies..."
 	pip install -r requirements.txt
-	cd KAIR_Repo ; pip install -r requiremet.txt
+	cd KAIR && pip install -r requirement.txt
 
 data_preparation:
 	@echo "Downloading Data..."
@@ -17,14 +17,9 @@ data_preparation:
 	rm -rf data/training_hr_images/training_hr_images/ data/testing_lr_images/testing_lr_images/
 	python image_preprocess.py
 
-make_trianing_lr: 
-	@echo "Making Training LR Images..."
-	rm -rf data/training_lr
-	mkdir -p data/training_lr
-	python make_training_lr.py
-
-train: 
-	cd KAIR; python main_train_psnr.py --opt options/train_msrresnet_psnr.json
+train:
+	-mv train KAIR
+	cd KAIR; python train.py --opt options/train_msrresnet_psnr.json
 
 result:
 	cd KAIR/results/swinir_classical_sr_x3; zip swinir_sr_20000.zip ./*.png 
