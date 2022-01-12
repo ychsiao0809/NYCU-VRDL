@@ -57,12 +57,6 @@ Homework4/
 │       └── tt27.png
 ├── KAIR/
 │   ├── ...
-│   ├── options/
-│   │   ├── swinir
-│   │   │   ├── ...
-│   │   │   ├── train_swinir_sr_customized.json
-│   │   │   └── ...
-│   │   └── ...
 │   ├── results/
 │   │   └── swinir_classical_sr_x3
 │   │       ├── 00_pred.png
@@ -81,6 +75,8 @@ Homework4/
 │   │       └── options/
 │   ├── ...
 │   └── requirements.txt
+├── options/
+│   └── train_swinir_sr_customized.json
 ├── train.py
 ├── test.py
 ├── image_preprocess.py
@@ -98,7 +94,7 @@ Homework4/
 ## Train
 ```
 mv train.py KAIR/
-cd KAIR && python train.py --opt options/swinir/train_swinir_sr_classical.json
+cd KAIR && python train.py --opt ../options/train_swinir_sr_classical.json
 ```
 There are no pretrained model used in this project.
 
