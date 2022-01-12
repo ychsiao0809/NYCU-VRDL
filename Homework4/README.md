@@ -118,6 +118,16 @@ cd KAIR/results/swinir_classical_sr_x3; zip result.zip ./*.png
 mv KAIR/results/swinir_classical_sr_x3/result.zip .
 ```
 
+## Experiment Result
+
+Model | Training Epoch | PSNR
+:--: | :--: | --
+**Baseline** | N/A | 27.4162
+SwinIR_20000_E | 20000 | 28.1878
+SwinIR_60000_G | 60000 | 28.3503
+SwinIR_60000_E | 60000 | 28.3627
+
+
 ## Reference
 - SwinIR: Image Restoration Using Swin Transformer
   - [Paper](https://arxiv.org/abs/2108.10257)
