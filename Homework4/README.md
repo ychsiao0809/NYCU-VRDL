@@ -18,7 +18,6 @@ cd NYCU-VRDL/Homework4
 pip install -r requirements.txt
 cd KAIR && pip install -r requirements.txt 
 ```
-3. Download pretrained model weigth [here]()
 
 ## Dataset
 The giving dataset contains 291 high resolution images for training and 13 low resolution images for testing.
