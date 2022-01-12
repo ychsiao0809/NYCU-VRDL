@@ -110,6 +110,9 @@ cd KAIR && python test.py --task classical_sr --scale 3 --training_patch_size 48
 ```
 
 ## Reference
-- [SwinIR: Image Restoration Using Swin Transformer](https://arxiv.org/abs/2108.10257)
-- [KAIR](https://github.com/cszn/KAIR)
-- [paper with code - Image Super-Resolution](https://paperswithcode.com/sota/image-super-resolution-on-set5-4x-upscaling)
+- SwinIR: Image Restoration Using Swin Transformer
+  - [Paper](https://arxiv.org/abs/2108.10257)
+  - [Github](https://github.com/JingyunLiang/SwinIR#Testing)
+- KAIR - Training and Testing Codes for USRNet, DnCNN, FFDNet, SRMD, DPSR, MSRResNet, ESRGAN, BSRGAN, SwinIR
+  - [Github](https://github.com/cszn/KAIR)
+- Paper With Code - [Image Super-Resolution](https://paperswithcode.com/sota/image-super-resolution-on-set5-4x-upscaling)
