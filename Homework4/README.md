@@ -96,13 +96,23 @@ Homework4/
 mv train.py KAIR/
 cd KAIR && python train.py --opt ../options/train_swinir_sr_classical.json
 ```
+The weight of model will be stored at `superresolution/swinir_sr_classical_patch48_x3/models/`.
 There are no pretrained model used in this project.
 
 ## Inference
-The model weight should be place under `superresolution/swinir_sr_classical_patch48_x3/models/`. The best model weight could be installed at [here]().
+The model weight should be place under `./model/`.
+The best model weight was stored as `./model/best.pth`.
 ```
 mv test.py KAIR/
-cd KAIR && python test.py --task classical_sr --scale 3 --training_patch_size 48 --model_path superresolution/swinir_sr_classical_patch48_x3/models/[model weight].pth --folder_lq ../data/testing_lr_images/
+cd KAIR && python test.py --task classical_sr --scale 3 --training_patch_size 48 --model_path ../models/best.pth --folder_lq ../data/testing_lr_images/
+```
+
+The inference result would be stored at `KAIR/results/swinir_classical_sr_x3/`.
+
+To generate the result zip file, run the following command:
+```
+cd KAIR/results/swinir_classical_sr_x3; zip swinir_sr_20000.zip ./*.png 
+mv KAIR/results/swinir_classical_sr_x3/swinir_sr_20000.zip .
 ```
 
 ## Reference
