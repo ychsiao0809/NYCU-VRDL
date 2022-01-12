@@ -9,7 +9,7 @@ def resize(image_path):
         (w, h) = img.size
         lower_edge = min(w, h)
         if lower_edge < 96:
-            print("Remove image %s (%d, %d)" % (file, w, h))
+            print("Remove image %s (Size: %dx%d)" % (file, w, h))
             os.remove(os.path.join(image_path, file))
 
 def main(args):
