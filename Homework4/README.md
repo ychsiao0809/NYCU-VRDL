@@ -22,23 +22,19 @@ cd KAIR && pip install -r requirements.txt
 ## Dataset
 The giving dataset contains 291 high resolution images for training and 13 low resolution images for testing.
 ```
-mkdir data
-gdown https://drive.google.com/uc?id=1GL_Rh1N-WjrvF_-YOKOyvq0zrV6TF4hb -O "data/dataset.zip"
-unzip -q "data/dataset.zip" -d "data/" && rm "data/dataset.zip"
-mv "data/testing_lr_images/testing_lr_images/*" "data/testing_lr_images/"
-mv "data/training_hr_images/training_hr_images/*" "data/training_hr_images/"
-rm -rf data/training_hr_images/training_lr_images/ data/testing_lr_images/testing_lr_images/
+rm -rf data
+mkdir -p data
+gdown https://drive.google.com/uc?id=1GL_Rh1N-WjrvF_-YOKOyvq0zrV6TF4hb -O "data/datasets.zip"
+unzip -q data/datasets.zip -d data/ && rm data/datasets.zip
+cp data/testing_lr_images/testing_lr_images/* data/testing_lr_images/
+cp data/training_hr_images/training_hr_images/* data/training_hr_images/
+rm -rf data/training_hr_images/training_hr_images/ data/testing_lr_images/testing_lr_images/
 ```
 
 ### Preprocess
 The size of training image must be larger than 96x96. Run `image_prerocess.py` to remove the picture which is smaller than the required image size.
 ```  
 python image_preprocess.py
-```
-
-Move the model configuration file to specified directory.
-```
-mv train_swinir_sr_customized.json KAIR/options/swinir/
 ```
 
 ### File structure
@@ -74,6 +70,8 @@ Homework4/
 │   │       └── options/
 │   ├── ...
 │   └── requirements.txt
+├── models/
+│   └── best.pth
 ├── options/
 │   └── train_swinir_sr_customized.json
 ├── train.py
@@ -92,7 +90,7 @@ Homework4/
 
 ## Train
 ```
-mv train.py KAIR/
+cp train.py KAIR/
 cd KAIR && python train.py --opt ../options/train_swinir_sr_classical.json
 ```
 The weight of model will be stored at `superresolution/swinir_sr_classical_patch48_x3/models/`.
@@ -102,16 +100,22 @@ There are no pretrained model used in this project.
 The model weight should be place under `./model/`.
 The best model weight was stored as `./model/best.pth`.
 ```
-mv test.py KAIR/
-cd KAIR && python test.py --task classical_sr --scale 3 --training_patch_size 48 --model_path ../models/best.pth --folder_lq ../data/testing_lr_images/
+cp test.py KAIR/
+cd KAIR && python test.py \
+            --task classical_sr \
+            --scale 3 \
+            --training_patch_size 48 \
+            --model_path ../models/best.pth \
+            --folder_lq ../data/testing_lr_images/
 ```
 
 The inference result would be stored at `KAIR/results/swinir_classical_sr_x3/`.
 
+### Generate Result
 To generate the result zip file, run the following command:
 ```
-cd KAIR/results/swinir_classical_sr_x3; zip swinir_sr_20000.zip ./*.png 
-mv KAIR/results/swinir_classical_sr_x3/swinir_sr_20000.zip .
+cd KAIR/results/swinir_classical_sr_x3; zip result.zip ./*.png 
+mv KAIR/results/swinir_classical_sr_x3/result.zip .
 ```
 
 ## Reference
