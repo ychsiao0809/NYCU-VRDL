@@ -11,7 +11,7 @@ NYCU VRDL Homework4: Image Super Resolution
 1. Clone the repository
 ```
 git clone --recurse-submodules https://github.com/ychsiao0809/NYCU-VRDL.git
-cd Homework4
+cd NYCU-VRDL/Homework4
 ```
 2. Install dependencies:
 ```
