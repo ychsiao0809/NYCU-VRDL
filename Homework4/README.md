@@ -123,10 +123,11 @@ mv KAIR/results/swinir_classical_sr_x3/result.zip .
 Model | Training Epoch | PSNR
 :--: | :--: | --
 **Baseline** | N/A | 27.4162
-SwinIR_20000_E | 20000 | 28.1878
-SwinIR_60000_G | 60000 | 28.3503
-SwinIR_60000_E | 60000 | 28.3627
-
+SwinIR_20000_E  | 20000  | 28.1878
+SwinIR_60000_G  | 60000  | 28.3503
+SwinIR_60000_E  | 60000  | 28.3627
+SwinIR_80000_E  | 80000  | 28.2641
+SwinIR_100000_E | 100000 | 28.1895
 
 ## Reference
 - SwinIR: Image Restoration Using Swin Transformer
